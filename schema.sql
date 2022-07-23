@@ -9,4 +9,23 @@ neutered BOOL,
 weight_kg real, 
 species varchar(255),
 PRIMARY KEY(id)
+species_id int,
+owner_id int
 );
+
+CREATE TABLE owners (
+    id serial PRIMARY KEY NOT NULL,
+    full_name varchar(100),
+    age int
+);
+
+CREATE TABLE species (
+    id serial PRIMARY KEY NOT NULL,
+    name varchar(100)
+);
+
+ALTER TABLE animals
+ADD FOREIGN KEY (species_id) REFERENCES species (id);
+
+ALTER TABLE animals
+ADD FOREIGN KEY (owner_id) REFERENCES species (id);
