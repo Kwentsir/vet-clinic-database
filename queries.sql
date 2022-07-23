@@ -89,3 +89,67 @@ SELECT o.full_name, COUNT(a.name)
  GROUP BY o.full_name
  ORDER BY COUNT(a.name) DESC
  LIMIT 1;
+
+ SELECT COUNT(DISTINCT (a.name))
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ WHERE v.name LIKE '%Mendez%';
+
+-- List all vets and their specialties, including vets with no specialties.
+SELECT v.name, spe.name
+  FROM specialization s
+ RIGHT OUTER JOIN vets v ON v.id = s.vet_id
+  LEFT OUTER JOIN species spe ON spe.id = s.species_id;
+
+-- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
+SELECT a.name
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ WHERE v.name LIKE '%Mendez%' AND vis.date BETWEEN '2020-04-01' AND '2020-08-30';
+
+-- What animal has the most visits to vets?
+SELECT a.name, COUNT(DISTINCT(vis.date)) AS visits
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ GROUP BY a.name
+ ORDER BY visits DESC
+ LIMIT 1;
+
+-- Who was Maisy Smith's first visit?
+SELECT a.name, vis.date
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ WHERE v.name LIKE '%Maisy%'
+ ORDER BY date ASC
+ LIMIT 1;
+
+-- Details for most recent visit: animal information, vet information, and date of visit.
+SELECT a.name, a.date_of_birth, a.escape_attempts, a.neutered, v.name, v.date_of_graduation, v.age, vis.date
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ WHERE v.name LIKE '%Maisy%'
+ ORDER BY date DESC
+ LIMIT 1;
+
+-- How many visits were with a vet that did not specialize in that animal's species?
+SELECT COUNT(*)
+  FROM vets v
+  JOIN visits vis on v.id = vis.vet_id
+  JOIN animals a ON vis.animal_id = a.id
+  JOIN specialization s on v.id = s.vet_id
+ WHERE NOT s.species_id = a.species_id;
+
+-- What specialty should Maisy Smith consider getting? Look for the species she gets the most.
+SELECT a.name, COUNT(vis.date) AS visits
+  FROM animals a
+ INNER JOIN visits vis ON a.id = vis.animal_id
+ INNER JOIN vets v ON vis.vet_id = v.id
+ WHERE v.name LIKE '%Maisy%'
+ GROUP BY a.name
+ ORDER BY visits DESC
+ LIMIT 1;
