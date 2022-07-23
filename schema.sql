@@ -14,13 +14,13 @@ owner_id int
 );
 
 CREATE TABLE owners (
-    id serial PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     full_name varchar(100),
     age int
 );
 
 CREATE TABLE species (
-    id serial PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     name varchar(100)
 );
 
