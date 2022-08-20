@@ -44,3 +44,37 @@ WHERE name='Charmander' OR name='Squirtle' OR name='Blossom';
 
 UPDATE animals SET owner_id=5
 WHERE name='Angemon' OR name='Boarmon';
+
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('Vet William Tatcher', 45, '2000-03-23'),
+       ('Vet Maisy Smith', 26, '2019-01-17'),
+       ('Vet Stephanie Mendez', 64, '1981-05-04'),
+       ('Vet Jack Harkness', 38, '2008-01-07');
+
+INSERT INTO specialization (vet_id, species_id)
+VALUES (1, 1),
+       (3, 1),
+       (3, 2),
+       (4, 2);
+
+INSERT INTO visits (date, vet_id, animal_id)
+VALUES ('2020-05-24', 1, 1),
+       ('2020-07-22', 3, 1),
+       ('2021-02-02', 4, 2),
+       ('2020-01-05', 2, 3),
+       ('2020-03-08', 2, 3),
+       ('2020-05-14', 2, 3),
+       ('2021-05-04', 3, 4),
+       ('2021-02-24', 4, 5),
+       ('2019-12-21', 2, 6),
+       ('2019-08-10', 1, 6),
+       ('2021-04-07', 2, 6),
+       ('2019-09-29', 3, 7),
+       ('2020-10-03', 4, 8),
+       ('2020-11-04', 4, 8),
+       ('2019-01-24', 2, 9),
+       ('2019-05-15', 2, 9),
+       ('2020-02-27', 2, 9),
+       ('2020-08-03', 2, 9),
+       ('2020-05-24', 3, 10),
+       ('2021-01-11', 1, 10);
